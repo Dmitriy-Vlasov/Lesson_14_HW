@@ -7,6 +7,7 @@ addNewItemButton.addEventListener('click', onToDoListButtonClick);
 toDoList.addEventListener('click', doneToDoListItem);
 
 function onToDoListButtonClick() {
+    clear(); 
     createNewItemToDoList();
 }
 
@@ -44,3 +45,7 @@ function doneToDoListItem(e) {
         e.target.classList.toggle('done');
     };
 };
+
+function clear() {
+    toDoList.innerHTML = '';
+}
