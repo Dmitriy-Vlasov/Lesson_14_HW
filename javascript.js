@@ -13,32 +13,33 @@ function onToDoListButtonClick() {
 
 function createNewItemToDoList() {
     fetch('https://jsonplaceholder.typicode.com/todos')
-    .then(response => {return response.json()})
-    .then(data => {addElement(data)})
+    .then(response => response.json())
+    .then(addElement)
 };
 
 function addElement(data) {
+    
     for (let i = 0; i < data.length; i++) {
         if (data[i].completed == true) {
-            createDoneItem(data, i);
+            createItem(data, i);
+            const toDoListAdd = createItem(data, i);
+            addStatusDone(toDoListAdd);
         } else {
-            createNotDoneItem(data, i);
+            createItem(data, i);
         }
     }; 
 };
 
-function createNotDoneItem(data, i) {
+function createItem(data, i) {
     const toDoListItem = document.createElement('li');
     toDoListItem.innerHTML = `${data[i].title}`;
     toDoList.append(toDoListItem); 
+    return toDoListItem;
 };
 
-function createDoneItem(data, i) {
-    const toDoListItem = document.createElement('li');
-    toDoListItem.innerHTML = `${data[i].title}`;
-    toDoList.append(toDoListItem); 
-    toDoListItem.classList.add('done');
-};
+function addStatusDone(toDoListAdd) {
+    toDoListAdd.classList.add('done');
+}
 
 function doneToDoListItem(e) {
     if (e.target.tagName == 'LI') {
